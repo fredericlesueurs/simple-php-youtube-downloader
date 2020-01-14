@@ -1,15 +1,18 @@
 <?php
-require 'vendor/autoload.php';
+namespace SimplePHPYoutubeDownloader;
+
+use SimplePHPYoutubeDownloader\Utils\Crawler;
+
+require '../vendor/autoload.php';
 
 class YoutubeDownloader {
 
-    private $id;
+    private $url;
+    private $crawler;
 
-    public function __construct(string $id)
+    public function __construct()
     {
-        $this->id = $id;
+        $this->crawler = new Crawler();
     }
-
-
 
 }
