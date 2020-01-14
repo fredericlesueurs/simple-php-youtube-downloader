@@ -1,0 +1,23 @@
+{
+    "name": "fredericlesueurs/youtube-downloader",
+    "description": "The simplest of videos downloader",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frédéric Lesueurs",
+            "email": "frederic.lesueurs@gmail.com"
+        }
+    ],
+    "require": {
+        "fabpot/goutte": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "YoutubeDownloader\\": "src/"
+        }
+    }
+}
