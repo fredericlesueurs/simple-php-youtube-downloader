@@ -13,10 +13,15 @@ class Crawler
         $this->client = new Client();
     }
 
-    public function getJsonResponsePlayer(string $url): string {
+    public function getPlayerResponse(string $url): array {
         $crawler = $this->client->request('GET', $url);
 
-        return '';
+        preg_match('/"streamingData":(?<jsonData>{.*}),"playerAds":.*"videoDetails":(?<details>{.*}),"annotations"/', stripcslashes($crawler->text()), $matchData);
+
+        $jsonResponse['data'] = $matchData['jsonData'];
+        $jsonResponse['details'] = $matchData['details'];
+
+        return $jsonResponse;
     }
 
 }

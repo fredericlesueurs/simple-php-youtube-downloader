@@ -9,7 +9,11 @@ class CrawlerTest extends TestCase
 
     public function test_crawler() {
         $crawler = new Crawler();
-        $crawler->getJsonResponsePlayer('https://www.youtube.com/watch?v=eS20eK8rDB8');
+        $json = $crawler->getPlayerResponse('https://www.youtube.com/watch?v=eS20eK8rDB8');
+
+        var_dump($json);
+        $parser = new \SimplePHPYoutubeDownloader\Utils\JsonParser();
+        $parser->parseJsonPlayerResponse($json);
     }
 
 }
