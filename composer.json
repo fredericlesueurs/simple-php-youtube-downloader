@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "php": "7.1.*",
         "fabpot/goutte": "^4.0",
         "ext-curl": "*",
         "ext-http": "*",

@@ -43,7 +43,11 @@ class Browser
         return $result;
     }
 
-    public function getCached($url): string
+    /**
+     * @param $url
+     * @return mixed|string|null
+     */
+    public function getCached($url)
     {
         $cache_path = sprintf('%s/%s', $this->storage_dir, $this->getCacheKey($url));
 
