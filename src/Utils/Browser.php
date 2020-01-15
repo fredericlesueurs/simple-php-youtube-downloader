@@ -1,6 +1,6 @@
 <?php
 
-namespace YouTube;
+namespace SimplePHPYoutubeDownloader\Utils;
 
 class Browser
 {
@@ -22,7 +22,7 @@ class Browser
         return $this->cookie_file;
     }
 
-    public function get($url)
+    public function get($url): string
     {
         $ch = curl_init($url);
 
@@ -43,7 +43,7 @@ class Browser
         return $result;
     }
 
-    public function getCached($url)
+    public function getCached($url): string
     {
         $cache_path = sprintf('%s/%s', $this->storage_dir, $this->getCacheKey($url));
 
@@ -65,7 +65,7 @@ class Browser
         return null;
     }
 
-    public function head($url)
+    public function head($url): array
     {
         $ch = curl_init($url);
 
@@ -85,7 +85,7 @@ class Browser
 
     }
 
-    protected function getCacheKey($url)
+    protected function getCacheKey($url): string
     {
         return md5($url);
     }

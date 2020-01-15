@@ -1,6 +1,6 @@
 <?php
 
-namespace YouTube;
+namespace SimplePHPYoutubeDownloader\Utils;
 
 class SignatureDecoder
 {
