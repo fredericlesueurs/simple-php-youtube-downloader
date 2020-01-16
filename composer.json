@@ -3,6 +3,7 @@
     "description": "The simplest of videos downloader",
     "type": "library",
     "license": "MIT",
+    "version": "0.5.0",
     "authors": [
         {
             "name": "Frédéric Lesueurs",
