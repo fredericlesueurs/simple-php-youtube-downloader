@@ -19,7 +19,7 @@ class VideoDetails
     /**
      * @var string
      */
-    private $lenghtSeconds;
+    private $lengthSeconds;
 
     /**
      * @var array
@@ -37,7 +37,7 @@ class VideoDetails
     private $isOwnerViewing;
 
     /**
-     * @var bool
+     * @var string
      */
     private $shortDescription;
 
@@ -48,6 +48,7 @@ class VideoDetails
 
     /**
      * @var array
+     * @type SimplePHPYoutubeDownloader\Model\Thumbnail
      */
     private $thumbnails;
 
@@ -98,7 +99,7 @@ class VideoDetails
      * @param string $videoId
      * @return VideoDetails
      */
-    public function setVideoId(string $videoId): VideoDetails
+    public function setVideoId(?string $videoId): VideoDetails
     {
         $this->videoId = $videoId;
         return $this;
@@ -116,7 +117,7 @@ class VideoDetails
      * @param string $title
      * @return VideoDetails
      */
-    public function setTitle(string $title): VideoDetails
+    public function setTitle(?string $title): VideoDetails
     {
         $this->title = $title;
         return $this;
@@ -125,18 +126,18 @@ class VideoDetails
     /**
      * @return string
      */
-    public function getLenghtSeconds(): string
+    public function getLengthSeconds(): string
     {
-        return $this->lenghtSeconds;
+        return $this->lengthSeconds;
     }
 
     /**
-     * @param string $lenghtSeconds
+     * @param string $lengthSeconds
      * @return VideoDetails
      */
-    public function setLenghtSeconds(string $lenghtSeconds): VideoDetails
+    public function setLengthSeconds(?string $lengthSeconds): VideoDetails
     {
-        $this->lenghtSeconds = $lenghtSeconds;
+        $this->lengthSeconds = $lengthSeconds;
         return $this;
     }
 
@@ -152,7 +153,7 @@ class VideoDetails
      * @param array $keywords
      * @return VideoDetails
      */
-    public function setKeywords(array $keywords): VideoDetails
+    public function setKeywords(?array $keywords): VideoDetails
     {
         $this->keywords = $keywords;
         return $this;
@@ -170,7 +171,7 @@ class VideoDetails
      * @param string $channelId
      * @return VideoDetails
      */
-    public function setChannelId(string $channelId): VideoDetails
+    public function setChannelId(?string $channelId): VideoDetails
     {
         $this->channelId = $channelId;
         return $this;
@@ -188,25 +189,25 @@ class VideoDetails
      * @param bool $isOwnerViewing
      * @return VideoDetails
      */
-    public function setIsOwnerViewing(bool $isOwnerViewing): VideoDetails
+    public function setIsOwnerViewing(?bool $isOwnerViewing): VideoDetails
     {
         $this->isOwnerViewing = $isOwnerViewing;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isShortDescription(): bool
+    public function getShortDescription(): string
     {
         return $this->shortDescription;
     }
 
     /**
-     * @param bool $shortDescription
+     * @param string $shortDescription
      * @return VideoDetails
      */
-    public function setShortDescription(bool $shortDescription): VideoDetails
+    public function setShortDescription(?string $shortDescription): VideoDetails
     {
         $this->shortDescription = $shortDescription;
         return $this;
@@ -224,7 +225,7 @@ class VideoDetails
      * @param bool $isCrawlable
      * @return VideoDetails
      */
-    public function setIsCrawlable(bool $isCrawlable): VideoDetails
+    public function setIsCrawlable(?bool $isCrawlable): VideoDetails
     {
         $this->isCrawlable = $isCrawlable;
         return $this;
@@ -242,7 +243,7 @@ class VideoDetails
      * @param array $thumbnails
      * @return VideoDetails
      */
-    public function setThumbnails(array $thumbnails): VideoDetails
+    public function setThumbnails(?array $thumbnails): VideoDetails
     {
         $this->thumbnails = $thumbnails;
         return $this;
@@ -260,7 +261,7 @@ class VideoDetails
      * @param float $averageRating
      * @return VideoDetails
      */
-    public function setAverageRating(float $averageRating): VideoDetails
+    public function setAverageRating(?float $averageRating): VideoDetails
     {
         $this->averageRating = $averageRating;
         return $this;
@@ -278,7 +279,7 @@ class VideoDetails
      * @param bool $allowRating
      * @return VideoDetails
      */
-    public function setAllowRating(bool $allowRating): VideoDetails
+    public function setAllowRating(?bool $allowRating): VideoDetails
     {
         $this->allowRating = $allowRating;
         return $this;
@@ -296,7 +297,7 @@ class VideoDetails
      * @param string $viewCount
      * @return VideoDetails
      */
-    public function setViewCount(string $viewCount): VideoDetails
+    public function setViewCount(?string $viewCount): VideoDetails
     {
         $this->viewCount = $viewCount;
         return $this;
@@ -314,7 +315,7 @@ class VideoDetails
      * @param string $author
      * @return VideoDetails
      */
-    public function setAuthor(string $author): VideoDetails
+    public function setAuthor(?string $author): VideoDetails
     {
         $this->author = $author;
         return $this;
@@ -332,7 +333,7 @@ class VideoDetails
      * @param bool $isPrivate
      * @return VideoDetails
      */
-    public function setIsPrivate(bool $isPrivate): VideoDetails
+    public function setIsPrivate(?bool $isPrivate): VideoDetails
     {
         $this->isPrivate = $isPrivate;
         return $this;
@@ -350,7 +351,7 @@ class VideoDetails
      * @param bool $isUnpluggedCorpus
      * @return VideoDetails
      */
-    public function setIsUnpluggedCorpus(bool $isUnpluggedCorpus): VideoDetails
+    public function setIsUnpluggedCorpus(?bool $isUnpluggedCorpus): VideoDetails
     {
         $this->isUnpluggedCorpus = $isUnpluggedCorpus;
         return $this;
@@ -368,7 +369,7 @@ class VideoDetails
      * @param bool $isLiveContent
      * @return VideoDetails
      */
-    public function setIsLiveContent(bool $isLiveContent): VideoDetails
+    public function setIsLiveContent(?bool $isLiveContent): VideoDetails
     {
         $this->isLiveContent = $isLiveContent;
         return $this;

@@ -14,6 +14,7 @@ class VideoPackage
 
     /**
      * @var array
+     * @type SimplePHPYoutubeDownloader\Model\Video
      */
     private $videos;
 

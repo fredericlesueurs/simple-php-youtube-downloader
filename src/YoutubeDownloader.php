@@ -1,8 +1,10 @@
 <?php
 namespace SimplePHPYoutubeDownloader;
 
+use ReflectionException;
 use SimplePHPYoutubeDownloader\Exception\UrlMalformedException;
 use SimplePHPYoutubeDownloader\Model\Video;
+use SimplePHPYoutubeDownloader\Model\VideoDetails;
 use SimplePHPYoutubeDownloader\Model\VideoPackage;
 use SimplePHPYoutubeDownloader\Utils\Browser;
 use SimplePHPYoutubeDownloader\Utils\Serializer;
@@ -23,6 +25,7 @@ class YoutubeDownloader {
      * @param string $url
      * @return VideoPackage
      * @throws UrlMalformedException
+     * @throws ReflectionException
      */
     public function getYoutubeVideo(string $url): VideoPackage {
         $html = $this->getHtmlPage($url);
@@ -34,12 +37,21 @@ class YoutubeDownloader {
 
         $videoData = $this->parseYoutubeVideoInformations($videoDataDetails, $jsCode);
 
-        var_dump($videoData);
-        var_dump($videoDataDetails);
+        $videosDataObject = [];
 
-        var_dump(Serializer::arrayToObject($videoData[0], Video::class));
+        foreach ($videoData as $videoArray) {
+            $videosDataObject[] = Serializer::arrayToObject($videoArray, Video::class);
+        }
 
-        return new VideoPackage();
+        $videoPackage = new VideoPackage();
+        $videoPackage->setVideoDetails(
+            Serializer::arrayToObject(
+                $this->simplifyThumbnailArray($videoDataDetails['details']),
+                VideoDetails::class)
+        );
+        $videoPackage->setVideos($videosDataObject);
+
+        return $videoPackage;
     }
 
     public function parseYoutubeVideoInformations(array $dataVideo, $jsCode): array {
@@ -165,6 +177,19 @@ class YoutubeDownloader {
         $signatureDecoded = $signatureDecoder->decode($signature, $jsCode);
 
         return $url . '&' . $sp . '=' . $signatureDecoded;
+    }
+
+    public function simplifyThumbnailArray(array $arrayDetails): array {
+        if (isset($arrayDetails['thumbnail']) && isset($arrayDetails['thumbnail']['thumbnails']) && count($arrayDetails['thumbnail']['thumbnails']) > 0) {
+            $thumbnails = $arrayDetails['thumbnail']['thumbnails'];
+            unset($arrayDetails['thumbnail']);
+            $arrayDetails['thumbnails'] = $thumbnails;
+
+            return $arrayDetails;
+        } else {
+            unset($arrayDetails['thumbnail']);
+            return $arrayDetails;
+        }
     }
 
 }
