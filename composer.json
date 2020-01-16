@@ -10,10 +10,9 @@
         }
     ],
     "require": {
-        "php": "7.1.*",
-        "fabpot/goutte": "^4.0",
+        "php": "^7.1",
+        "jan-swiecki/simple-annotations": "^0.3.1",
         "ext-curl": "*",
-        "ext-http": "*",
         "ext-json": "*"
     },
     "require-dev": {

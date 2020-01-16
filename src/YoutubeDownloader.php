@@ -2,8 +2,10 @@
 namespace SimplePHPYoutubeDownloader;
 
 use SimplePHPYoutubeDownloader\Exception\UrlMalformedException;
+use SimplePHPYoutubeDownloader\Model\Video;
 use SimplePHPYoutubeDownloader\Model\VideoPackage;
 use SimplePHPYoutubeDownloader\Utils\Browser;
+use SimplePHPYoutubeDownloader\Utils\Serializer;
 use SimplePHPYoutubeDownloader\Utils\SignatureDecoder;
 
 require '../vendor/autoload.php';
@@ -12,15 +14,32 @@ class YoutubeDownloader {
 
     private $client;
 
-    public function __construct($url)
+    public function __construct()
     {
         $this->client = new Browser();
-        $html = $this->getHtmlPage($url);
-        $this->getPlayerResponseAndVideoDetails($html);
     }
 
-    public function getYoutubeVideo(): VideoPackage {
+    /**
+     * @param string $url
+     * @return VideoPackage
+     * @throws UrlMalformedException
+     */
+    public function getYoutubeVideo(string $url): VideoPackage {
+        $html = $this->getHtmlPage($url);
 
+        $videoDataDetails = $this->getPlayerResponseAndVideoDetails($html);
+
+        $playerUrl = $this->getPlayerUrl($html);
+        $jsCode = $this->getPlayerCode($playerUrl);
+
+        $videoData = $this->parseYoutubeVideoInformations($videoDataDetails, $jsCode);
+
+        var_dump($videoData);
+        var_dump($videoDataDetails);
+
+        var_dump(Serializer::arrayToObject($videoData[0], Video::class));
+
+        return new VideoPackage();
     }
 
     public function parseYoutubeVideoInformations(array $dataVideo, $jsCode): array {
