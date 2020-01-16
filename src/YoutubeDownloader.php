@@ -4,6 +4,7 @@ namespace SimplePHPYoutubeDownloader;
 use SimplePHPYoutubeDownloader\Exception\UrlMalformedException;
 use SimplePHPYoutubeDownloader\Model\VideoPackage;
 use SimplePHPYoutubeDownloader\Utils\Browser;
+use SimplePHPYoutubeDownloader\Utils\SignatureDecoder;
 
 require '../vendor/autoload.php';
 
@@ -18,9 +19,39 @@ class YoutubeDownloader {
         $this->getPlayerResponseAndVideoDetails($html);
     }
 
-    public function parseYoutubeVideoInformations(array $dataVideo, $jsCode): VideoPackage {
+    public function getYoutubeVideo(): VideoPackage {
+        
+    }
 
+    public function parseYoutubeVideoInformations(array $dataVideo, $jsCode): array {
 
+        $dataVideoParsed = [];
+
+        $formats = $dataVideo['data']['formats'];
+        $adaptiveFormats = $dataVideo['data']['adaptiveFormats'];
+
+        if (!is_array($formats)) {
+            $formats = array();
+        }
+
+        if (!is_array($adaptiveFormats)) {
+            $adaptiveFormats = array();
+        }
+
+        $combinedFormats = array_merge($formats, $adaptiveFormats);
+
+        foreach ($combinedFormats as $item) {
+
+            // some videos do not need to be decrypted!
+            if (!isset($item['url'])) {
+                $item['url'] = $this->decodeUrl($item, $jsCode);
+                unset($item['cipher']);
+            }
+
+            $dataVideoParsed[] = $item;
+        }
+
+        return $dataVideoParsed;
 
     }
 
@@ -65,14 +96,14 @@ class YoutubeDownloader {
     }
 
     /**
-     * @param string $video_html
+     * @param string $html
      * @return string
      */
-    public function getPlayerUrl(string $video_html): string {
+    public function getPlayerUrl(string $html): string {
         $player_url = null;
 
         // check what player version that video is using
-        if (preg_match('@<script\s*src="([^"]+player[^"]+js)@', $video_html, $matches)) {
+        if (preg_match('@<script\s*src="([^"]+player[^"]+js)@', $html, $matches)) {
             $player_url = $matches[1];
 
             // relative protocol?
@@ -89,6 +120,23 @@ class YoutubeDownloader {
 
     public function getPlayerCode(string $player_url): string {
         return $this->client->getCached($player_url);
+    }
+
+    public function decodeUrl(array $item, string $jsCode): string {
+
+        $cipher = isset($item['cipher']) ? $item['cipher'] : '';
+
+        parse_str($cipher, $result);
+
+
+        $url = $result['url'];
+        $sp = $result['sp']; // typically 'sig'
+        $signature = $result['s'];
+
+        $signatureDecoder = new SignatureDecoder();
+        $signatureDecoded = $signatureDecoder->decode($signature, $jsCode);
+
+        return $url . '&' . $sp . '=' . $signatureDecoded;
     }
 
 }
