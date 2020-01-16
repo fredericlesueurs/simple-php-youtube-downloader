@@ -54,4 +54,16 @@ class VideoPackage
         return $this;
     }
 
+    public function getVideoWithSound(): array {
+        $videos = $this->getVideos();
+
+        return array_filter($videos, function (Video $item){
+           return !is_null($item->getAudioQuality());
+        });
+    }
+
+    public function getMostQualityVideoWithSound(): Video {
+
+    }
+
 }
