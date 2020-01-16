@@ -20,7 +20,7 @@ class YoutubeDownloader {
     }
 
     public function getYoutubeVideo(): VideoPackage {
-        
+
     }
 
     public function parseYoutubeVideoInformations(array $dataVideo, $jsCode): array {
@@ -100,28 +100,37 @@ class YoutubeDownloader {
      * @return string
      */
     public function getPlayerUrl(string $html): string {
-        $player_url = null;
+        $playerUrl = null;
 
         // check what player version that video is using
         if (preg_match('@<script\s*src="([^"]+player[^"]+js)@', $html, $matches)) {
-            $player_url = $matches[1];
+            $playerUrl = $matches[1];
 
             // relative protocol?
-            if (strpos($player_url, '//') === 0) {
-                $player_url = 'http://' . substr($player_url, 2);
-            } elseif (strpos($player_url, '/') === 0) {
+            if (strpos($playerUrl, '//') === 0) {
+                $playerUrl = 'http://' . substr($playerUrl, 2);
+            } elseif (strpos($playerUrl, '/') === 0) {
                 // relative path?
-                $player_url = 'http://www.youtube.com' . $player_url;
+                $playerUrl = 'http://www.youtube.com' . $playerUrl;
             }
         }
 
-        return $player_url;
+        return $playerUrl;
     }
 
+    /**
+     * @param string $player_url
+     * @return string
+     */
     public function getPlayerCode(string $player_url): string {
         return $this->client->getCached($player_url);
     }
 
+    /**
+     * @param array $item
+     * @param string $jsCode
+     * @return string
+     */
     public function decodeUrl(array $item, string $jsCode): string {
 
         $cipher = isset($item['cipher']) ? $item['cipher'] : '';
