@@ -54,6 +54,9 @@ class VideoPackage
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getVideoWithSound(): array {
         $videos = $this->getVideos();
 
@@ -62,8 +65,28 @@ class VideoPackage
         });
     }
 
+    /**
+     * @return Video
+     */
     public function getMostQualityVideoWithSound(): Video {
+        /**
+         * @var Video $videoMaxRes
+         */
+        $videoMaxRes = null;
 
+        foreach ($this->getVideos() as $video) {
+            $videoRes = $video->getHeight();
+
+            if (!is_null($videoMaxRes)) {
+                if ($videoMaxRes->getHeight() < $videoRes) {
+                    $videoMaxRes = $video;
+                }
+            } else {
+                $videoMaxRes = $video;
+            }
+        }
+
+        return $videoMaxRes;
     }
 
 }
