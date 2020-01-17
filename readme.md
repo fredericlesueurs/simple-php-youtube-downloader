@@ -8,7 +8,7 @@ You will get an easy to use object containing the details of the video and sever
 Pour installer cette library, il suffit d'utiliser la commande suivante :
 
 ```bash
-composer require fredericlesueurs/simple-php-youtube-downloader
+composer require fredericlesueurs/youtube-downloader
 ```
 
 ## Usage
