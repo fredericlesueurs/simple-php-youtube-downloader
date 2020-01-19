@@ -359,47 +359,30 @@ class Video
     public function __sleep(): array
     {
         return [
-            'itag' => $this->getItag(),
-            'url' => $this->getUrl(),
-            'mimeType' => $this->getMimeType(),
-            'width' => $this->getWidth(),
-            'height' => $this->getHeight(),
-            'contentLength' => $this->getContentLength(),
-            'lastModified' =>$this->getLastModified(),
-            'quality' => $this->getQuality(),
-            'fps' => $this->getFps(),
-            'qualityLabel' => $this->getQualityLabel(),
-            'projectionType' => $this->getProjectionType(),
-            'approxDurationMs' => $this->getApproxDurationMs(),
-            'audioQuality' => $this->getAudioQuality(),
-            'audioChannels' => $this->getAudioChannels(),
-            'indicativeFormat' => $this->getIndicativeFormat()
+            'itag',
+            'url',
+            'mimeType',
+            'width',
+            'height',
+            'contentLength',
+            'lastModified',
+            'quality',
+            'fps',
+            'qualityLabel',
+            'projectionType',
+            'approxDurationMs',
+            'audioQuality',
+            'audioChannels',
+            'indicativeFormat'
         ];
     }
 
     /**
-     * @param array $videoArray
      * @return Video
      */
-    public function __wakeup(array $videoArray): Video
+    public function __wakeup(): Video
     {
-        $video = new Video();
-        $video
-            ->setItag($videoArray['itag'])
-            ->setUrl($videoArray['url'])
-            ->setMimeType($videoArray['mimeType'])
-            ->setWidth($videoArray['width'])
-            ->setHeight($videoArray['height'])
-            ->setContentLength($videoArray['contentLength'])
-            ->setLastModified($videoArray['lastModified'])
-            ->setQuality($videoArray['quality'])
-            ->setFps($videoArray['fps'])
-            ->setQualityLabel($videoArray['qualityLabel'])
-            ->setProjectionType($videoArray['projectionType'])
-            ->setApproxDurationMs($videoArray['approxDurationMs'])
-            ->setAudioQuality($videoArray['audioQuality'])
-            ->setAudioChannels($videoArray['audioChannels'])
-            ->setIndicativeFormat($videoArray['indicativeFormat']);
+        return $this;
     }
 
 }
