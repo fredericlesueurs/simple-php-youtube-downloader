@@ -58,12 +58,20 @@ class VideoPackage
         return $this;
     }
 
+    public function getVideosWithSound(): array {
+        $videos = $this->getVideos();
+
+        return array_filter($videos, function (Video $video) {
+           return !is_null($video->getAudioQuality());
+        });
+    }
+
     /**
      * @throws ReflectionException
      */
-    public function getArrayOfVideos() {
+    public function getArrayOfVideosWithSound() {
         $arrayVideos = [];
-        $videos = $this->getVideos();
+        $videos = $this->getVideosWithSound();
 
         foreach ($videos as $video) {
             $arrayVideos[] = Serializer::toArray($video, Video::class);
