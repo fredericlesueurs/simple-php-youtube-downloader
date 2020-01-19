@@ -4,6 +4,8 @@
 namespace SimplePHPYoutubeDownloader\Model;
 
 
+use ReflectionException;
+use SimplePHPYoutubeDownloader\Utils\Serializer;
 use function foo\func;
 
 class VideoPackage
@@ -56,12 +58,18 @@ class VideoPackage
         return $this;
     }
 
-    public function getVideosWithSound(): array {
+    /**
+     * @throws ReflectionException
+     */
+    public function getArrayOfVideos() {
+        $arrayVideos = [];
         $videos = $this->getVideos();
 
-        return array_filter($videos, function (Video $video) {
-           return !is_null($video->getAudioQuality());
-        });
+        foreach ($videos as $video) {
+            $arrayVideos[] = Serializer::toArray($video, Video::class);
+        }
+
+        return $arrayVideos;
     }
 
 }

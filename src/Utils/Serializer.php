@@ -71,4 +71,37 @@ class Serializer
         return array_keys($array) !== range(0, count($array) - 1);
     }
 
+    /**
+     * @param object $object
+     * @param string $classname
+     * @return array
+     * @throws ReflectionException
+     * @throws \Exception
+     */
+    public static function toArray(object $object, string $classname): array
+    {
+        $array = [];
+
+        try {
+            $class = new ReflectionClass($classname);
+            $methods = get_class_methods($classname);
+
+            foreach ($methods as $method) {
+                if (preg_match('/^get.*/', $method) || preg_match('/^is.*/', $method)) {
+                    $methodToInvoke = $class->getMethod($method);
+                    if (!is_null($methodToInvoke->invoke($object))) {
+                        $champ = preg_filter('/^(get|is)/', '', $method);
+                        $champ = lcfirst($champ);
+                        $array[$champ] = $methodToInvoke->invoke($object);
+                    }
+                }
+            }
+
+        } catch (ReflectionException $e) {
+            throw new ReflectionException('Error when serializing the class: ' . $classname, 1, $e);
+        }
+
+        return $array;
+    }
+
 }

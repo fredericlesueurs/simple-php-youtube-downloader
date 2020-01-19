@@ -352,37 +352,4 @@ class Video
         
         return $this;
     }
-
-    /**
-     * @return array
-     */
-    public function __sleep(): array
-    {
-        return [
-            'itag',
-            'url',
-            'mimeType',
-            'width',
-            'height',
-            'contentLength',
-            'lastModified',
-            'quality',
-            'fps',
-            'qualityLabel',
-            'projectionType',
-            'approxDurationMs',
-            'audioQuality',
-            'audioChannels',
-            'indicativeFormat'
-        ];
-    }
-
-    /**
-     * @return Video
-     */
-    public function __wakeup(): Video
-    {
-        return $this;
-    }
-
 }
