@@ -85,7 +85,7 @@ class Video
     /**
      * @return int
      */
-    public function getItag(): int
+    public function getItag(): ?int
     {
         return $this->itag;
     }
@@ -103,7 +103,7 @@ class Video
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -121,7 +121,7 @@ class Video
     /**
      * @return string
      */
-    public function getMimeType(): string
+    public function getMimeType(): ?string
     {
         return $this->mimeType;
     }
@@ -139,7 +139,7 @@ class Video
     /**
      * @return int
      */
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
@@ -157,7 +157,7 @@ class Video
     /**
      * @return int
      */
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
@@ -175,7 +175,7 @@ class Video
     /**
      * @return string
      */
-    public function getContentLength(): string
+    public function getContentLength(): ?string
     {
         return $this->contentLength;
     }
@@ -193,7 +193,7 @@ class Video
     /**
      * @return string
      */
-    public function getLastModified(): string
+    public function getLastModified(): ?string
     {
         return $this->lastModified;
     }
@@ -211,7 +211,7 @@ class Video
     /**
      * @return string
      */
-    public function getQuality(): string
+    public function getQuality(): ?string
     {
         return $this->quality;
     }
@@ -229,7 +229,7 @@ class Video
     /**
      * @return int
      */
-    public function getFps(): int
+    public function getFps(): ?int
     {
         return $this->fps;
     }
@@ -247,7 +247,7 @@ class Video
     /**
      * @return string
      */
-    public function getQualityLabel(): string
+    public function getQualityLabel(): ?string
     {
         return $this->qualityLabel;
     }
@@ -265,7 +265,7 @@ class Video
     /**
      * @return string
      */
-    public function getProjectionType(): string
+    public function getProjectionType(): ?string
     {
         return $this->projectionType;
     }
@@ -283,7 +283,7 @@ class Video
     /**
      * @return string
      */
-    public function getApproxDurationMs(): string
+    public function getApproxDurationMs(): ?string
     {
         return $this->approxDurationMs;
     }
@@ -301,7 +301,7 @@ class Video
     /**
      * @return string
      */
-    public function getAudioQuality(): string
+    public function getAudioQuality(): ?string
     {
         return $this->audioQuality;
     }
@@ -319,7 +319,7 @@ class Video
     /**
      * @return int
      */
-    public function getAudioChannels(): int
+    public function getAudioChannels(): ?int
     {
         return $this->audioChannels;
     }
@@ -337,7 +337,7 @@ class Video
     /**
      * @return string
      */
-    public function getIndicativeFormat(): string
+    public function getIndicativeFormat(): ?string
     {
         return $this->indicativeFormat;
     }

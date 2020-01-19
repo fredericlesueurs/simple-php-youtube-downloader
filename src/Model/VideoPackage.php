@@ -4,6 +4,8 @@
 namespace SimplePHPYoutubeDownloader\Model;
 
 
+use function foo\func;
+
 class VideoPackage
 {
 
@@ -52,6 +54,14 @@ class VideoPackage
     {
         $this->videos = $videos;
         return $this;
+    }
+
+    public function getVideosWithSound(): array {
+        $videos = $this->getVideos();
+
+        return array_filter($videos, function (Video $video) {
+           return !is_null($video->getAudioQuality());
+        });
     }
 
 }
