@@ -2,6 +2,7 @@
 namespace SimplePHPYoutubeDownloader;
 
 use ReflectionException;
+use SimplePHPYoutubeDownloader\Exception\ErrorDataVideoException;
 use SimplePHPYoutubeDownloader\Exception\UrlMalformedException;
 use SimplePHPYoutubeDownloader\Model\Video;
 use SimplePHPYoutubeDownloader\Model\VideoDetails;
@@ -89,14 +90,22 @@ class YoutubeDownloader {
     /**
      * @param string $html
      * @return array
+     * @throws ErrorDataVideoException
      */
     public function getPlayerResponseAndVideoDetails(string $html): array {
-        preg_match('/"streamingData":(?<jsonData>{.*}),"playerAds":.*"videoDetails":(?<details>{.*}),"annotations"/', stripcslashes($html), $matches);
 
-        $videoData['data'] = json_decode($matches['jsonData'], true);
-        $videoData['details'] = json_decode($matches['details'], true);
+        if (preg_match('/player_response":"(.*?)","/', $html, $matches)) {
+            $match = stripslashes($matches[1]);
 
-        return $videoData;
+            $jsonResponse = json_decode($match, true);
+            $videoData['data'] = $jsonResponse['streamingData'];
+            $videoData['details'] = $jsonResponse['videoDetails'];
+
+            return $videoData;
+        } else {
+            throw new ErrorDataVideoException('The plugin couldn\'t retrieve the information to retrieve the links of the video.');
+        }
+
     }
 
     /**
