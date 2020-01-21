@@ -1,0 +1,19 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
+language: php
+
+# list any PHP version you want to test against
+php:
+  # aliased to a recent 7.x version
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+
+
+# omitting "script:" will default to phpunit
+# use the $DB env variable to determine the phpunit.xml to use
+script: phpunit --configuration phpunit.xml --coverage-text
+
+# configure notifications (email, IRC, campfire etc)
+notifications:
+  email: "frederic.lesueurs@gmail.com"

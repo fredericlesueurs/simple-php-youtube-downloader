@@ -115,7 +115,7 @@ class YoutubeDownloader {
      * @return mixed
      * @throws UrlMalformedException
      */
-    public function extractVideoId(string $url) {
+    public function extractVideoId(string $url): string {
 
         preg_match('/^https:\/\/www\.youtube\.com\/watch\?v=(.{11}).*$/', $url, $matches);
 
